@@ -1,20 +1,20 @@
-import pandas as pd
 import simpy
 from loguru import logger
-
-from dpgen.task_generator import PoissonTaskGenerator
 
 
 class LastItem:
     def __init__(self):
         return
 
+
 class ResourceManager:
     """
     Manages blocks and tasks arrival
     """
 
-    def __init__(self, environment, engine_hook, task_generator, block_generator, config):
+    def __init__(
+        self, environment, engine_hook, task_generator, block_generator, config
+    ):
         self.env = environment
         self.config = config
 
@@ -33,7 +33,6 @@ class ResourceManager:
         self.task_production_terminated = self.env.event()
         self.block_consumption_terminated = self.env.event()
         self.task_consumption_terminated = self.env.event()
-
 
     def start(self):
         self.daemon_clock = self.env.process(self.daemon_clock())
@@ -66,8 +65,8 @@ class ResourceManager:
                 self.block_consumption_terminated.succeed()
                 return
 
-            block_id = block_message
-            self.engine_hook.add_data_partition(block_id)
+            block_id, block = block_message
+            self.engine_hook.add_data_partition(block_id, block)
 
             if self.config.blocks.initial_num == block_id + 1:
                 self.blocks_initialized.succeed()

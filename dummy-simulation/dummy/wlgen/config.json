@@ -1,0 +1,14 @@
+{
+    "enable_random_seed": false,
+    "global_seed": 64,
+    "blocks": {
+        "initial_num": 1,
+        "max_num": 10,
+        "arrival_interval": 1
+    },
+    "tasks": {
+        "avg_num_tasks_per_block": 10,
+        "max_num": 1e2,
+        "initial_num": 0
+    }
+}

@@ -10,7 +10,7 @@ class Blocks:
 
     def __init__(self, environment, resource_manager):
         self.env = environment
-        self.config = self.resource_manager.config
+        self.config = resource_manager.config
         self.resource_manager = resource_manager
         self.block_generator = self.resource_manager.block_generator
         self.blocks_count = count()
@@ -38,4 +38,4 @@ class Blocks:
         block = self.block_generator.create_data_partition()
 
         logger.debug(f"Block: {block} generated at {self.env.now}")
-        self.resource_manager.new_blocks_queue.put(block)
+        self.resource_manager.new_blocks_queue.put((block_id, block))

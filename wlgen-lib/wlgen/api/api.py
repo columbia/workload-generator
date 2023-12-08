@@ -3,6 +3,7 @@ from typing import Any
 
 # Classes to be implemented by users for integrating with workload generator
 
+
 class TaskGenerator(ABC):
     def __init__(
         self,
@@ -10,8 +11,11 @@ class TaskGenerator(ABC):
         pass
 
     @abstractmethod
-    def create_task(self,):
+    def create_task(
+        self,
+    ):
         raise NotImplementedError()
+
 
 class DataPartitionGenerator(ABC):
     def __init__(
@@ -20,7 +24,9 @@ class DataPartitionGenerator(ABC):
         pass
 
     @abstractmethod
-    def create_data_partition(self,):
+    def create_data_partition(
+        self,
+    ):
         raise NotImplementedError()
 
 
@@ -37,6 +43,3 @@ class EngineHook(ABC):
     @abstractmethod
     def add_data_partition(self, partition: Any):
         raise NotImplementedError()
-
-
-

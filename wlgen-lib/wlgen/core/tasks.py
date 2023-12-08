@@ -1,7 +1,7 @@
 import random
 from loguru import logger
 from itertools import count
-from dpgen.core.resourcemanager import LastItem
+from wlgen.core.resourcemanager import LastItem
 
 
 class Tasks:
@@ -39,7 +39,7 @@ class Tasks:
             task_arrival_interval = (
                 0
                 if self.resource_manager.block_production_terminated.triggered
-                else random.expovariate(self.config.avg_num_tasks_per_block)
+                else random.expovariate(self.config.tasks.avg_num_tasks_per_block)
             )
 
             self.task(task_id)
@@ -55,9 +55,7 @@ class Tasks:
 
     def task(self, task_id: int) -> None:
         """Task behavior. Sets its own demand, notifies resource manager of its existence"""
-        task = self.task_generator.create_task(task_id)
+        task = self.task_generator.create_task()
 
-        logger.debug(
-            f"Task: {task_id} generated at {self.env.now}. Name: {task}"
-        )
+        logger.debug(f"Task: {task_id} generated at {self.env.now}. Name: {task}")
         self.resource_manager.new_tasks_queue.put(task)

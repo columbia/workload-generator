@@ -1,4 +1,6 @@
 {
+    "enable_random_seed": false,
+    "global_seed": 64,
     "blocks": {
         "initial_num": 1,
         "max_num": 5,
