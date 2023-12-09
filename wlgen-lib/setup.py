@@ -11,4 +11,8 @@ setup(
         "numpy",
         "setuptools",
     ],
+    license='MIT',
+    description = 'Simulating arrival of tasks/data into a system',
+    url = 'https://github.com/columbia/workload-generator',
+    # download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',
 )
