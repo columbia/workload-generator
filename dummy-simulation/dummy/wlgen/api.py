@@ -1,56 +1,44 @@
-import random
-
+import numpy as np
 from typing import List, Any
 from wlgen.api import TaskGenerator, DataPartitionGenerator, EngineHook
 
 
 class DummyTask:
-    def __init__(
-        self,
-        id: int,
-        query: Any,
-        data_partitions: List[str],
-    ):
+    def __init__(self, id: int, query: Any, data_partitions: List[str]):
         self.id = id
         self.query = query
         self.data_partitions = data_partitions
 
 
 class DummyDataPartition:
-    def __init__(
-        self,
-        id: int,
-        data: Any,
-    ):
+    def __init__(self, id: int, data: Any):
         self.id = id
         self.data = data
 
 
+# Integrating with wlgen by implementing its abstract classes
 class DummyTaskGenerator(TaskGenerator):
-    def __init__(
-        self,
-    ) -> None:
+    def __init__(self, config):
         self.counter = 0
         self.query_pool = ["query1", "query2", "query3"]
+        rng = (
+            np.random.default_rng()
+            if config.enable_random_seed
+            else np.random.default_rng(config.global_seed)
+        )
 
-    def create_task(
-        self,
-    ):
-        query = self.query_pool[random.randint(0, 2)]
+    def create_task(self):
+        query = self.query_pool[self.rng.randint(0, 2)]
         task = DummyTask(self.counter, query, [0])
         self.counter += 1
         return task
 
 
 class DummyDataPartitionGenerator(DataPartitionGenerator):
-    def __init__(
-        self,
-    ) -> None:
+    def __init__(self):
         self.counter = 0
 
-    def create_data_partition(
-        self,
-    ):
+    def create_data_partition(self):
         data_partition = DummyDataPartition(self.counter, "random_data")
         self.counter += 1
         return data_partition

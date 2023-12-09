@@ -1,4 +1,3 @@
-import random
 from loguru import logger
 from itertools import count
 from wlgen.core.resourcemanager import LastItem
@@ -7,7 +6,8 @@ from wlgen.core.resourcemanager import LastItem
 class Tasks:
     """Model task arrival rate and privacy demands."""
 
-    def __init__(self, environment, resource_manager):
+    def __init__(self, environment, resource_manager, rng):
+        self.rng = rng
         self.env = environment
         self.config = resource_manager.config
         self.resource_manager = resource_manager
@@ -39,7 +39,7 @@ class Tasks:
             task_arrival_interval = (
                 0
                 if self.resource_manager.block_production_terminated.triggered
-                else random.expovariate(self.config.tasks.avg_num_tasks_per_block)
+                else self.rng.exponential(1 / self.config.tasks.avg_num_tasks_per_block)
             )
 
             self.task(task_id)

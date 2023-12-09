@@ -5,35 +5,25 @@ from typing import Any
 
 
 class TaskGenerator(ABC):
-    def __init__(
-        self,
-    ) -> None:
+    def __init__(self):
         pass
 
     @abstractmethod
-    def create_task(
-        self,
-    ):
+    def create_task(self):
         raise NotImplementedError()
 
 
 class DataPartitionGenerator(ABC):
-    def __init__(
-        self,
-    ) -> None:
+    def __init__(self):
         pass
 
     @abstractmethod
-    def create_data_partition(
-        self,
-    ):
+    def create_data_partition(self):
         raise NotImplementedError()
 
 
 class EngineHook(ABC):
-    def __init__(
-        self,
-    ):
+    def __init__(self):
         pass
 
     @abstractmethod
@@ -41,5 +31,5 @@ class EngineHook(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def add_data_partition(self, partition: Any):
+    def add_data_partition(self, partition_id, partition: Any):
         raise NotImplementedError()
