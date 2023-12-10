@@ -1,2 +1,2 @@
 -e dummy-simulation
--e wlgen-lib
+-e wlgenlib
