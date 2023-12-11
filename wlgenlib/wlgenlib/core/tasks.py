@@ -1,6 +1,6 @@
 from loguru import logger
 from itertools import count
-from wlgen.core.resourcemanager import LastItem
+from wlgenlib.core.resourcemanager import LastItem
 
 
 class Tasks:

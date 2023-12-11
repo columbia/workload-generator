@@ -3,9 +3,9 @@ import numpy as np
 from pathlib import Path
 from loguru import logger
 from omegaconf import OmegaConf
-from wlgen.core.tasks import Tasks
-from wlgen.core.blocks import Blocks
-from wlgen.core.resourcemanager import ResourceManager
+from wlgenlib.core.tasks import Tasks
+from wlgenlib.core.blocks import Blocks
+from wlgenlib.core.resourcemanager import ResourceManager
 
 REPO_ROOT = Path(__file__).parent.parent
 DEFAULT_CONFIG_FILE = REPO_ROOT.joinpath("config/config.json")

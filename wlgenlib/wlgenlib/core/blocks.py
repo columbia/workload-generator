@@ -1,6 +1,6 @@
 from itertools import count
 from loguru import logger
-from wlgen.core.resourcemanager import LastItem
+from wlgenlib.core.resourcemanager import LastItem
 
 
 class Blocks:
