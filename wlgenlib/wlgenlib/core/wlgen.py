@@ -7,8 +7,7 @@ from wlgenlib.core.tasks import Tasks
 from wlgenlib.core.blocks import Blocks
 from wlgenlib.core.resourcemanager import ResourceManager
 
-REPO_ROOT = Path(__file__).parent.parent
-DEFAULT_CONFIG_FILE = REPO_ROOT.joinpath("config/config.json")
+DEFAULT_CONFIG_FILE = Path(__file__).parent.joinpath("config.json")
 
 
 class WLGen:

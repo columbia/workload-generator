@@ -14,5 +14,5 @@ setup(
     license='MIT',
     description = 'Simulating arrival of tasks/data into a system',
     url = 'https://github.com/columbia/workload-generator',
-    download_url = "https://github.com/columbia/workload-generator/archive/refs/tags/v0.0.1.zip",
+    download_url = "https://github.com/columbia/workload-generator/archive/refs/tags/v0.1.tar.gz",
 )
