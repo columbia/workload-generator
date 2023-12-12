@@ -1,3 +1,4 @@
+from typing import List
 from loguru import logger
 from itertools import count
 from wlgenlib.core.resourcemanager import LastItem
@@ -28,9 +29,12 @@ class Tasks:
         task_id = next(self.task_count)
 
         # Produce initial tasks
-        for _ in range(self.config.tasks.initial_num):
-            self.task(task_id)
+        initial_task_ids = []
+        for _ in range(int(self.config.tasks.initial_num)):
+            initial_task_ids.append(task_id)
             task_id = next(self.task_count)
+        # Feed all initial tasks at once as a batch
+        self.task(initial_task_ids)
         logger.debug("Done producing all the initial tasks.")
 
         while self.config.tasks.max_num > task_id:
@@ -41,8 +45,8 @@ class Tasks:
                 if self.resource_manager.block_production_terminated.triggered
                 else self.rng.exponential(1 / self.config.tasks.avg_num_tasks_per_block)
             )
-
-            self.task(task_id)
+            # Feed all online tasks one by one
+            self.task([task_id])
             yield self.env.timeout(task_arrival_interval)
             task_id = next(self.task_count)
 
@@ -53,9 +57,9 @@ class Tasks:
             f"Done generating tasks at time {self.env.now}. Current count is: {task_id}"
         )
 
-    def task(self, task_id: int) -> None:
+    def task(self, task_ids: List[int]) -> None:
         """Task behavior. Sets its own demand, notifies resource manager of its existence"""
-        task = self.task_generator.create_task()
-
-        logger.debug(f"Task: {task_id} generated at {self.env.now}. Name: {task}")
-        self.resource_manager.new_tasks_queue.put(task)
+        
+        batch = [self.task_generator.create_task() for _ in task_ids]
+        logger.debug(f"Batch: {task_ids} generated at {self.env.now}. Name: {batch}")
+        self.resource_manager.new_tasks_queue.put(batch)

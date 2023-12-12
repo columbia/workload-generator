@@ -1,6 +1,6 @@
 import numpy as np
 from typing import List, Any
-from wlgen.api import TaskGenerator, DataPartitionGenerator, EngineHook
+from wlgenlib.api import TaskGenerator, DataPartitionGenerator, EngineHook
 
 
 class DummyTask:
@@ -18,20 +18,18 @@ class DummyDataPartition:
 
 # Integrating with wlgen by implementing its abstract classes
 class DummyTaskGenerator(TaskGenerator):
-    def __init__(self, config):
+    def __init__(self):
         self.counter = 0
         self.query_pool = ["query1", "query2", "query3"]
-        rng = (
+        self.rng = (
             np.random.default_rng()
-            if config.enable_random_seed
-            else np.random.default_rng(config.global_seed)
         )
 
     def create_task(self):
-        query = self.query_pool[self.rng.randint(0, 2)]
+        query = self.query_pool[self.rng.integers(0, 2)]
         task = DummyTask(self.counter, query, [0])
         self.counter += 1
-        return task
+        return [task]
 
 
 class DummyDataPartitionGenerator(DataPartitionGenerator):

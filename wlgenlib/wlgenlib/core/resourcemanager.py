@@ -80,5 +80,5 @@ class ResourceManager:
                 self.task_consumption_terminated.succeed()
                 return
 
-            task = task_message
-            self.engine_hook.evaluate(task)
+            batch = task_message
+            self.engine_hook.evaluate(batch)

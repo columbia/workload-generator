@@ -8,7 +8,7 @@ from dummy.wlgen.api import (
     DummyTaskGenerator,
     DummyDataPartitionGenerator,
 )
-from wlgen.core import WLGen
+from wlgenlib.core import WLGen
 
 app = typer.Typer()
 
